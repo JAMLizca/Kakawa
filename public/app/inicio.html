@@ -1,0 +1,207 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="Content-Security-Policy"
+        content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'self'; base-uri 'self'; form-action 'self'">
+  <meta name="description" content="Kakawa: asociación cacaotera del Huila. Cacao con trazabilidad verificable, catálogo y acceso para compradores y personal.">
+  <meta name="theme-color" content="#691212">
+  <title>Kakawa | Cacao con historia</title>
+  <link rel="icon" href="img/Logo.svg" type="image/svg+xml">
+  <link rel="manifest" href="manifest.json">
+  <link rel="stylesheet" href="css/Kakawa.css">
+  <script type="module" src="js/sitio.js"></script>
+  <script type="module" src="js/pwa.js"></script>
+  <script type="module" src="js/asistente/asistente.js"></script>
+</head>
+<body class="pagina-sitio">
+  <a class="saltar" href="#contenido">Saltar al contenido</a>
+
+  <header class="sitio-cabecera" id="cabecera">
+    <a class="sitio-marca" href="inicio.html">
+      <img src="img/Logo.svg" alt="" width="40" height="40">
+      <span>Kakawa</span>
+    </a>
+    <button class="sitio-menu-boton" id="sitio-menu-boton" type="button" aria-expanded="false" aria-controls="sitio-nav">
+      <span class="menu-boton__icono" aria-hidden="true"><span></span><span></span><span></span></span>
+      <span class="visualmente-oculto">Menú</span>
+    </button>
+    <div class="sitio-nav" id="sitio-nav">
+      <nav aria-label="Secciones del sitio">
+        <a href="#asociacion">La asociación</a>
+        <a href="#proceso">Cómo trabajamos</a>
+        <a href="#catalogo">Catálogo</a>
+
+        <a href="ficha.html">Consultar código</a>
+      </nav>
+      <div class="sitio-sesion" id="sitio-sesion"></div>
+    </div>
+  </header>
+
+  <main id="contenido" tabindex="-1">
+    <section class="portada" aria-labelledby="titulo-portada">
+      <div class="portada__texto">
+        <p class="portada__antetitulo">Asociación cacaotera del Huila</p>
+        <h1 id="titulo-portada">Cacao con historia, <em>calidad</em> y valor</h1>
+        <p class="portada__lema">Del lote al producto final, cada grano tiene un recorrido que se puede verificar. Compra cacao del Huila con su origen a la vista.</p>
+        <div class="portada__acciones">
+          <a class="boton" href="#catalogo">Ver el catálogo</a>
+          <a class="boton boton--claro" href="#registro">Crear cuenta para comprar</a>
+        </div>
+      </div>
+      <dl class="portada__cifras" id="cifras" aria-live="polite">
+        <div><dt>Productos disponibles</dt><dd class="cifra" data-cifra="productos">0</dd></div>
+        <div><dt>Kilos a la venta</dt><dd class="cifra" data-cifra="kilos">0</dd></div>
+        <div><dt>Municipios de origen</dt><dd class="cifra" data-cifra="municipios">0</dd></div>
+      </dl>
+    </section>
+
+    <section class="sitio-seccion" id="asociacion" aria-labelledby="titulo-asociacion">
+      <div class="sitio-seccion__encabezado">
+        <p class="antetitulo">La asociación</p>
+        <h2 id="titulo-asociacion">Productores que cuidan cada etapa</h2>
+        <p>Kakawa reúne a productores del Huila que reciben, fermentan, secan y transforman su cacao en conjunto. Este sitio centraliza la información de la asociación: el catálogo para compradores y el acceso del personal.</p>
+      </div>
+      <ul class="valores">
+        <li class="valor valor--trazabilidad">
+
+          <span class="valor__icono" aria-hidden="true"></span>
+          <h3>Trazabilidad</h3>
+          <p>Cada producto conserva el lote del que salió y las etapas que recorrió, con fechas y cantidades.</p>
+        </li>
+        <li class="valor valor--calidad">
+          <span class="valor__icono" aria-hidden="true"></span>
+          <h3>Calidad</h3>
+          <p>Solo se venden productos liberados por la asociación. Si un lote presenta un problema, se bloquea de inmediato.</p>
+        </li>
+        <li class="valor valor--valor">
+          <span class="valor__icono" aria-hidden="true"></span>
+          <h3>Comercio directo</h3>
+          <p>El comprador envía su solicitud a la asociación y recibe respuesta, sin intermediarios.</p>
+        </li>
+      </ul>
+    </section>
+
+    <section class="sitio-seccion sitio-seccion--franja" id="proceso" aria-labelledby="titulo-proceso">
+      <div class="sitio-seccion__encabezado">
+        <p class="antetitulo">Cómo trabajamos</p>
+        <h2 id="titulo-proceso">Del lote a su mesa</h2>
+      </div>
+      <ol class="proceso">
+        <li><span class="proceso__numero">1</span><h3>Recepción</h3><p>Cada lote entra con su origen, productor, fecha y cantidad.</p></li>
+        <li><span class="proceso__numero">2</span><h3>Transformación</h3><p>Fermentación, secado y tostión quedan registradas con la merma de cada etapa.</p></li>
+        <li><span class="proceso__numero">3</span><h3>Control de calidad</h3><p>La asociación libera o bloquea los productos, siempre con un motivo.</p></li>
+        <li><span class="proceso__numero">4</span><h3>Venta</h3><p>Usted elige en el catálogo, revisa el recorrido y envía su solicitud.</p></li>
+      </ol>
+    </section>
+
+    <section class="sitio-seccion" id="catalogo" aria-labelledby="titulo-catalogo">
+      <div class="sitio-seccion__encabezado">
+
+        <p class="antetitulo">Catálogo</p>
+        <h2 id="titulo-catalogo">Cacao disponible</h2>
+        <p>Productos liberados y con existencia. Entre a cada uno para ver su recorrido completo. Para ver el precio y comprar, cree su cuenta.</p>
+      </div>
+      <form class="catalogo-filtros" id="catalogo-filtros" role="search" aria-label="Filtrar el catálogo">
+        <div class="campo catalogo-filtros__busqueda">
+          <label for="filtro-texto">Buscar</label>
+          <input id="filtro-texto" name="texto" type="search" placeholder="Código, lote, producto o municipio" autocomplete="off">
+        </div>
+        <div class="campo">
+          <label for="filtro-municipio">Municipio</label>
+          <select id="filtro-municipio" name="municipio"><option value="">Todos</option></select>
+        </div>
+        <div class="campo">
+          <label for="filtro-orden">Ordenar por</label>
+          <select id="filtro-orden" name="orden">
+            <option value="disponible">Más kilos disponibles</option>
+            <option value="nombre">Nombre</option>
+            <option value="lote">Lote</option>
+          </select>
+        </div>
+      </form>
+      <p class="catalogo-resumen" id="catalogo-resumen" aria-live="polite"></p>
+      <div class="catalogo" id="catalogo-lista"><p class="cargando">Cargando el catálogo…</p></div>
+    </section>
+
+    <section class="sitio-seccion acceso-sitio" id="acceso" aria-labelledby="titulo-acceso">
+      <span id="registro" class="ancla" aria-hidden="true"></span>
+      <div class="acceso-sitio__lado">
+        <p class="antetitulo">Acceso</p>
+        <h2 id="titulo-acceso">Un solo inicio de sesión</h2>
+        <figure class="ilustracion-acceso">
+          <svg viewBox="0 0 420 360" role="img" aria-label="Mazorca de cacao con un candado: acceso seguro a Kakawa" focusable="false">
+            <defs>
+              <linearGradient id="ia-mazorca-color" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0" stop-color="#c9954f"/><stop offset="0.55" stop-color="#9a6d38"/><stop offset="1" stop-color="#691212"/>
+              </linearGradient>
+              <linearGradient id="ia-hoja-color" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0" stop-color="#4f8a58"/><stop offset="1" stop-color="#33673b"/>
+              </linearGradient>
+            </defs>
+            <path class="ia-fondo" d="M46 160C30 90 96 26 182 22c72-3 112 28 160 32 52 4 76 56 68 112-7 50 14 86-8 128-26 50-96 54-160 50-70-4-112 6-160-24C40 290 60 226 46 160z"/>
+            <circle class="ia-sol" cx="318" cy="88" r="34"/>
+
+            <g class="ia-hoja ia-hoja--izq"><path d="M196 118C140 92 92 112 70 160c52 10 100-4 126-42z"/><path class="ia-nervio" d="M196 118C150 128 110 142 76 158"/></g>
+            <g class="ia-hoja ia-hoja--der"><path d="M222 112C262 64 322 60 356 92c-40 34-92 44-134 20z"/><path class="ia-nervio" d="M222 112c40-14 84-20 128-20"/></g>
+
+            <g class="ia-mazorca">
+              <path class="ia-tallo" d="M210 70v36"/>
+              <path class="ia-cuerpo" d="M210 104c50 0 78 50 78 104s-30 104-78 104-78-50-78-104 28-104 78-104z"/>
+              <path class="ia-surco" d="M210 108c-14 30-16 70-16 100s2 70 16 100"/>
+              <path class="ia-surco" d="M210 108c14 30 16 70 16 100s-2 70-16 100"/>
+              <path class="ia-surco" d="M190 112c-30 26-38 60-38 96s8 70 38 96"/>
+              <path class="ia-surco" d="M230 112c30 26 38 60 38 96s-8 70-38 96"/>
+              <path class="ia-brillo" d="M168 170c4-22 14-38 26-48"/>
+            </g>
+
+            <g class="ia-candado">
+              <circle class="ia-candado__aro" cx="276" cy="270" r="40"/>
+              <circle class="ia-candado__fondo" cx="276" cy="270" r="32"/>
+              <path class="ia-candado__arco" d="M265 266v-8a11 11 0 0 1 22 0v8"/>
+              <rect class="ia-candado__cuerpo" x="259" y="265" width="34" height="25" rx="6"/>
+              <circle class="ia-candado__ojo" cx="276" cy="276" r="3.5"/>
+            </g>
+
+            <g class="ia-grano ia-grano--1"><ellipse cx="86" cy="250" rx="12" ry="17" transform="rotate(-25 86 250)"/><path d="M80 238q8 12 12 24" transform="rotate(-25 86 250)"/></g>
+            <g class="ia-grano ia-grano--2"><ellipse cx="350" cy="190" rx="10" ry="14" transform="rotate(30 350 190)"/><path d="M345 180q6 10 10 20" transform="rotate(30 350 190)"/></g>
+            <g class="ia-grano ia-grano--3"><ellipse cx="120" cy="320" rx="8" ry="12" transform="rotate(15 120 320)"/></g>
+
+            <path class="ia-chispa ia-chispa--1" d="M108 92l4 10 10 4-10 4-4 10-4-10-10-4 10-4z"/>
+            <path class="ia-chispa ia-chispa--2" d="M372 270l3 7 7 3-7 3-3 7-3-7-7-3 7-3z"/>
+            <path class="ia-chispa ia-chispa--3" d="M156 44l3 7 7 3-7 3-3 7-3-7-7-3 7-3z"/>
+          </svg>
+        </figure>
+      </div>
+      <div class="acceso-sitio__tarjeta">
+        <div class="pestanas" role="tablist" aria-label="Acceso">
+          <button class="pestana" id="pestana-ingreso" type="button" role="tab" aria-controls="panel-ingreso" aria-selected="true">Iniciar sesión</button>
+          <button class="pestana" id="pestana-registro" type="button" role="tab" aria-controls="panel-registro" aria-selected="false" tabindex="-1">Crear cuenta</button>
+        </div>
+        <div class="panel-acceso" id="panel-ingreso" role="tabpanel" aria-labelledby="pestana-ingreso"></div>
+        <div class="panel-acceso" id="panel-registro" role="tabpanel" aria-labelledby="pestana-registro" hidden></div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="sitio-pie">
+    <div class="sitio-pie__marca">
+      <img src="img/Logo.svg" alt="" width="32" height="32">
+      <span>Kakawa</span>
+      <p>Cacao con historia, calidad y valor.</p>
+    </div>
+    <nav class="sitio-pie__enlaces" aria-label="Enlaces del pie">
+      <a href="#catalogo">Catálogo</a>
+      <a href="ficha.html">Consultar un código</a>
+      <a href="#acceso">Iniciar sesión</a>
+      <a href="#registro">Crear cuenta</a>
+    </nav>
+    <p class="sitio-pie__aviso">Datos simulados con fines de demostración. II Hackathon de Programación USCO.</p>
+  </footer>
+
+
+  <div class="avisos" id="avisos" role="status" aria-live="polite"></div>
+  <noscript><p class="noscript">Este sitio necesita JavaScript activado.</p></noscript>
+</body>
+</html>

@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="Content-Security-Policy"
+        content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'self'; base-uri 'self'; form-action 'self'">
+  <meta name="description" content="Kakawa: trazabilidad, transformación y comercialización del cacao.">
+  <meta name="theme-color" content="#691212">
+  <title>Kakawa</title>
+  <link rel="icon" href="img/Logo.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="css/Kakawa.css">
+  <script type="module" src="js/app.js"></script>
+  <script type="module" src="js/menu.js"></script>
+</head>
+<body>
+  <a class="saltar" href="#vista">Saltar al contenido</a>
+
+  <header class="barra barra--app" id="barra" hidden>
+    <div class="barra__movil">
+      <button class="menu-boton" id="menu-boton" type="button" aria-expanded="false" aria-controls="navegacion">
+        <span class="menu-boton__icono" aria-hidden="true"><span></span><span></span><span></span></span>
+        <span class="visualmente-oculto menu-boton__texto">Abrir menú</span>
+      </button>
+      <a class="marca" href="#/lotes" aria-label="Kakawa, ir a lotes">
+        <img src="img/Logo.svg" alt="" width="28" height="28">
+        <span>Kakawa</span>
+      </a>
+    </div>
+    <div class="barra__superior">
+      <p class="barra__fecha" id="fecha-hoy"></p>
+
+      <a class="logo-esquina" href="#/lotes" aria-label="Kakawa, ir a lotes">
+        <img src="img/Logo.svg" alt="" width="36" height="36">
+        <span class="logo-esquina__texto">
+          <span class="logo-esquina__nombre">Kakawa</span>
+          <span class="logo-esquina__lema">Cacao con historia</span>
+        </span>
+      </a>
+    </div>
+    <div class="lateral__fondo" id="menu-fondo" aria-hidden="true"></div>
+    <aside class="lateral" id="navegacion" aria-label="Menú principal">
+      <div class="lateral__usuario">
+        <span class="lateral__avatar" aria-hidden="true"></span>
+        <span class="lateral__nombre" id="usuario-actual"></span>
+      </div>
+      <nav class="menu" aria-label="Principal">
+        <ul id="menu"></ul>
+      </nav>
+      <div class="lateral__pie">
+        <button class="lateral__salir" id="salir" type="button">Cerrar sesión</button>
+      </div>
+    </aside>
+  </header>
+
+  <main class="vista" id="vista" tabindex="-1">
+    <p class="cargando">Cargando Kakawa…</p>
+  </main>
+
+  <div class="avisos" id="avisos" role="status" aria-live="polite"></div>
+
+  <noscript>
+    <p class="noscript">Kakawa necesita JavaScript activado para funcionar.</p>
+  </noscript>
+
+</body>
+</html>

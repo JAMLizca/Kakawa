@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="Content-Security-Policy"
+        content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'self'; base-uri 'self'; form-action 'self'">
+  <meta name="description" content="Origen y recorrido de un producto de cacao de la asociación Kakawa.">
+  <meta name="theme-color" content="#691212">
+  <meta name="robots" content="noindex">
+  <title>Ficha del producto | Kakawa</title>
+  <link rel="icon" href="img/Logo.svg" type="image/svg+xml">
+  <link rel="manifest" href="manifest.json">
+  <link rel="stylesheet" href="css/Kakawa.css">
+  <script type="module" src="js/ficha.js"></script>
+  <script type="module" src="js/pwa.js"></script>
+</head>
+<body class="pagina-sitio pagina-ficha">
+  <a class="saltar" href="#ficha">Saltar al contenido</a>
+
+  <header class="sitio-cabecera" id="cabecera">
+    <a class="sitio-marca" href="inicio.html">
+      <img src="img/Logo.svg" alt="" width="40" height="40">
+      <span>Kakawa</span>
+    </a>
+    <button class="sitio-menu-boton" id="sitio-menu-boton" type="button" aria-expanded="false" aria-controls="sitio-nav">
+      <span class="menu-boton__icono" aria-hidden="true"><span></span><span></span><span></span></span>
+      <span class="visualmente-oculto">Menú</span>
+    </button>
+    <div class="sitio-nav" id="sitio-nav">
+      <nav aria-label="Secciones del sitio">
+        <a href="inicio.html#asociacion">La asociación</a>
+        <a href="inicio.html#proceso">Cómo trabajamos</a>
+        <a href="inicio.html#catalogo">Catálogo</a>
+        <a href="ficha.html" aria-current="page">Consultar código</a>
+      </nav>
+      <div class="sitio-sesion" id="sitio-sesion"></div>
+    </div>
+  </header>
+
+  <main class="ficha-pagina" id="ficha" tabindex="-1">
+    <p class="cargando">Cargando la ficha…</p>
+  </main>
+
+  <footer class="sitio-pie">
+    <div class="sitio-pie__marca">
+      <img src="img/Logo.svg" alt="" width="32" height="32">
+      <span>Kakawa</span>
+      <p>Cacao con historia, calidad y valor.</p>
+    </div>
+    <nav class="sitio-pie__enlaces" aria-label="Enlaces del pie">
+      <a href="inicio.html#catalogo">Catálogo</a>
+      <a href="inicio.html#acceso">Iniciar sesión</a>
+      <a href="inicio.html#registro">Crear cuenta</a>
+    </nav>
+    <p class="sitio-pie__aviso">Datos simulados con fines de demostración. II Hackathon de Programación USCO.</p>
+  </footer>
+
+  <div class="avisos" id="avisos" role="status" aria-live="polite"></div>
+  <noscript><p class="noscript">Esta ficha necesita JavaScript activado.</p></noscript>
+</body>
+</html>

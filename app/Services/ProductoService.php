@@ -53,10 +53,22 @@ class ProductoService
 
         $estadoPublico = $bloqueado ? Estado::Bloqueado : $producto->estado;
 
+        // Recorrido público con cantidades por etapa. Sin costos, responsables, incidencias ni usuarios.
         $etapas = $lote->transformaciones()
             ->orderBy('fecha')->orderBy('id')
-            ->get(['etapa', 'fecha', 'producto_id'])
-            ->map(fn ($t) => ['etapa' => $t->etapa, 'fecha' => $t->fecha?->format('Y-m-d')])
+            ->get(['etapa', 'fecha', 'producto_id', 'entrada_producto_id', 'cantidad_entrada', 'cantidad_salida', 'unidad'])
+            ->map(fn ($t) => [
+                'etapa' => $t->etapa,
+                'fecha' => $t->fecha?->format('Y-m-d'),
+                'desde' => $t->entrada_producto_id ?? $lote->id,
+                'producto' => $t->producto_id,
+                'cantidad_entrada' => (float) $t->cantidad_entrada,
+                'cantidad_salida' => (float) $t->cantidad_salida,
+                'unidad' => $t->unidad,
+                'merma' => (float) $t->cantidad_entrada > 0 && (float) $t->cantidad_salida <= (float) $t->cantidad_entrada
+                    ? round(((float) $t->cantidad_entrada - (float) $t->cantidad_salida) * 100 / (float) $t->cantidad_entrada, 2)
+                    : null,
+            ])
             ->all();
 
         return [
@@ -81,6 +93,8 @@ class ProductoService
                 'municipio' => $lote->origen,
                 'departamento' => 'Huila',
                 'fecha_recepcion' => $lote->fecha_recepcion?->format('Y-m-d'),
+                'cantidad_recibida' => (float) $lote->cantidad_recibida,
+                'unidad' => $lote->unidad,
                 'descripcion' => $lote->descripcion,
             ],
             'recorrido' => $etapas,

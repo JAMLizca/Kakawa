@@ -1,0 +1,125 @@
+/* =========================================================
+   Kakawa · estilo orgánico cacao · Tienda y solicitudes
+   Tienda del comprador, "Mis solicitudes" y bandeja del administrador.
+   ========================================================= */
+:root {
+  --icono-tienda: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cg fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4 9h16l-1.5 11h-13z'/%3E%3Cpath d='M8.5 9V7a3.5 3.5 0 0 1 7 0v2'/%3E%3C/g%3E%3C/svg%3E");
+  --icono-solicitudes: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cg fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4 5h16v11H8l-4 4z'/%3E%3Cpath d='M8 9h8M8 12.5h5'/%3E%3C/g%3E%3C/svg%3E");
+}
+.lateral .menu a[href="#/tienda"]::before { -webkit-mask-image: var(--icono-tienda); mask-image: var(--icono-tienda); }
+.lateral .menu a[href="#/mis-solicitudes"]::before,
+.lateral .menu a[href="#/solicitudes"]::before { -webkit-mask-image: var(--icono-solicitudes); mask-image: var(--icono-solicitudes); }
+
+/* ---------- Tienda ---------- */
+.tienda { display: grid; gap: var(--espacio3); grid-template-columns: repeat(auto-fill, minmax(17rem, 1fr)); }
+.tienda > .vacio, .tienda > .cargando { grid-column: 1 / -1; }
+
+.producto-tarjeta {
+  position: relative; display: flex; flex-direction: column; overflow: hidden;
+  background: var(--superficie); border: 1px solid var(--borde); border-radius: var(--radio-grande);
+  box-shadow: var(--sombra-1);
+  animation: entrar-suave .6s var(--suave) both;
+  transition: transform .35s var(--rebote), box-shadow .35s var(--suave);
+}
+.producto-tarjeta:hover { transform: translateY(-6px); box-shadow: var(--sombra-2); }
+
+/* Cabecera ilustrada: tres granos de cacao que flotan sobre un degradado de la paleta */
+.producto-tarjeta__arte {
+  position: relative; height: 8.5rem; overflow: hidden;
+  background:
+    radial-gradient(70% 90% at 15% 10%, color-mix(in srgb, var(--tea-green) 70%, transparent), transparent 70%),
+    radial-gradient(60% 80% at 100% 100%, color-mix(in srgb, var(--golden-earth) 55%, transparent), transparent 70%),
+
+    linear-gradient(135deg, var(--hunter-green), color-mix(in srgb, var(--hunter-green) 60%, var(--black-cherry)));
+}
+.producto-tarjeta__grano {
+  position: absolute; width: 2.6rem; height: 3.8rem; border-radius: 50%;
+  background: radial-gradient(circle at 35% 30%, color-mix(in srgb, var(--golden-earth) 55%, white), var(--golden-earth) 45%, var(--black-cherry));
+  box-shadow: inset -4px -2px 0 rgba(0, 0, 0, 0.18), 0 10px 18px rgba(0, 0, 0, 0.25);
+  animation: flotar 6s ease-in-out infinite;
+}
+.producto-tarjeta__grano::after { content: ""; position: absolute; left: 50%; top: 12%; bottom: 12%; width: 2px; border-radius: 2px; background: rgba(0, 0, 0, 0.2); transform: translateX(-50%); }
+.producto-tarjeta__grano:nth-child(1) { left: 14%; top: 22%; transform: rotate(-25deg); }
+.producto-tarjeta__grano:nth-child(2) { left: 44%; top: 40%; width: 2.2rem; height: 3.2rem; transform: rotate(18deg); animation-delay: -2s; }
+.producto-tarjeta__grano:nth-child(3) { right: 12%; top: 12%; width: 1.9rem; height: 2.8rem; transform: rotate(40deg); animation-delay: -4s; }
+.producto-tarjeta:hover .producto-tarjeta__grano { animation-duration: 2.5s; }
+
+.producto-tarjeta__cuerpo { display: flex; flex-direction: column; gap: var(--espacio0); flex: 1; padding: var(--espacio3); }
+.producto-tarjeta__codigo { margin: 0; font-size: var(--paso-1); font-weight: 750; letter-spacing: 0.04em; color: var(--cacao-texto); }
+.producto-tarjeta h2 { margin: 0; font-size: var(--paso2); color: var(--black-cherry); }
+.producto-tarjeta__origen { margin: 0; color: var(--hunter-green); font-weight: 650; }
+.producto-tarjeta__datos { display: flex; flex-wrap: wrap; gap: var(--espacio0); margin: var(--espacio0) 0; padding: 0; list-style: none; }
+.producto-tarjeta__datos li { padding: 0.25rem 0.7rem; border-radius: 999px; font-size: var(--paso-1); color: var(--texto-suave); background: var(--cacao-fondo); }
+.producto-tarjeta__datos strong { color: var(--texto); }
+.producto-tarjeta__precio { margin: auto 0 var(--espacio1); font-family: var(--fuente-titulos); font-size: var(--paso3); font-weight: 750; color: var(--texto); }
+.producto-tarjeta__precio small { font-family: var(--fuente); font-size: var(--paso-1); font-weight: 600; color: var(--texto-suave); }
+.producto-tarjeta__acciones { display: flex; flex-wrap: wrap; gap: var(--espacio0); }
+.producto-tarjeta__acciones .boton { flex: 1 1 auto; }
+
+.solicitud-total { margin: 0; font-weight: 750; color: var(--hunter-green); min-height: 1.4em; }
+
+/* ---------- Solicitudes (comprador y administrador) ---------- */
+.solicitudes { display: grid; gap: var(--espacio2); }
+.solicitud {
+  --tono: var(--golden-earth);
+
+  position: relative; display: grid; gap: var(--espacio1);
+  padding: var(--espacio3) var(--espacio3) var(--espacio3) calc(var(--espacio3) + 6px);
+  background: var(--superficie); border: 1px solid var(--borde); border-radius: var(--radio);
+  box-shadow: var(--sombra-1); overflow: hidden;
+  animation: entrar-suave .55s var(--suave) both;
+  transition: box-shadow .3s, transform .3s var(--suave);
+}
+.solicitud::before { content: ""; position: absolute; inset: 0 auto 0 0; width: 6px; background: var(--tono); }
+.solicitud:hover { box-shadow: var(--sombra-2); transform: translateY(-2px); }
+.solicitud--aceptada { --tono: var(--hunter-green); }
+.solicitud--rechazada { --tono: var(--blood-red); }
+.solicitud__encabezado { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-start; gap: var(--espacio1); }
+.solicitud__encabezado h2 { margin: 0; font-size: var(--paso1); color: var(--black-cherry); }
+.solicitud__encabezado p { margin: 0.2rem 0 0; }
+.solicitud__cantidad { margin: 0; font-size: var(--paso1); }
+.solicitud__detalle { display: flex; flex-wrap: wrap; justify-content: space-between; gap: var(--espacio2); align-items: center; }
+.solicitud__cliente { display: grid; gap: 0.1rem; text-align: right; font-size: var(--paso-1); }
+.solicitud__cliente strong { font-size: var(--paso0); }
+.solicitud__mensaje { margin: 0; padding: var(--espacio1) var(--espacio2); border-radius: 14px; background: var(--fondo); color: var(--texto); font-style: italic; }
+.solicitud__respuesta {
+  position: relative; padding: var(--espacio1) var(--espacio2); border-radius: 14px 14px 14px 4px;
+  background: color-mix(in srgb, var(--tono) 12%, var(--superficie)); border: 1px solid color-mix(in srgb, var(--tono) 30%, transparent);
+}
+.solicitud__respuesta strong { display: block; font-size: var(--paso-1); color: var(--tono); }
+.solicitud__respuesta p { margin: 0.2rem 0 0; }
+.solicitud .acciones { margin-top: var(--espacio0); }
+
+.chip-solicitud {
+  display: inline-flex; align-items: center; gap: 0.4em; padding: 0.25em 0.8em; border-radius: 999px;
+  font-size: var(--paso-1); font-weight: 750; white-space: nowrap;
+}
+.chip-solicitud::before { content: ""; width: 0.5em; height: 0.65em; border-radius: 50%; background: currentColor; transform: rotate(20deg); }
+
+.chip-solicitud--pendiente { color: var(--cacao-texto); background: var(--cacao-fondo); }
+.chip-solicitud--pendiente::before { animation: latido 1.6s ease-in-out infinite; }
+.chip-solicitud--aceptada { color: var(--hunter-green); background: var(--verde-fondo); }
+.chip-solicitud--rechazada { color: var(--blood-red); background: var(--rojo-fondo); }
+
+/* Filtros en píldoras con contador */
+.filtro-chips { display: flex; flex-wrap: wrap; gap: var(--espacio0); margin-bottom: var(--espacio3); }
+.filtro-chip {
+  display: inline-flex; align-items: center; gap: var(--espacio0); min-height: 40px; padding: 0 0.6rem 0 1rem;
+  border: 1.5px solid var(--borde); border-radius: 999px; background: var(--superficie);
+  font: inherit; font-weight: 650; color: var(--texto); cursor: pointer;
+  transition: background .2s, border-color .2s, color .2s, transform .25s var(--rebote);
+}
+.filtro-chip:hover { border-color: var(--golden-earth); transform: translateY(-1px); }
+.filtro-chip__n { min-width: 1.6rem; padding: 0.05rem 0.45rem; border-radius: 999px; text-align: center; font-size: var(--paso-1); background: var(--cacao-fondo); }
+.filtro-chip[aria-pressed="true"] { color: #fff; background: var(--hunter-green); border-color: var(--hunter-green); }
+.filtro-chip[aria-pressed="true"] .filtro-chip__n { color: var(--hunter-green); background: var(--tea-green); }
+
+@media (max-width: 40rem) {
+  .solicitud__cliente { text-align: left; }
+}
+
+@keyframes flotar { 0%, 100% { translate: 0 0; } 50% { translate: 0 -8px; } }
+@media (prefers-reduced-motion: reduce) {
+  .producto-tarjeta, .solicitud, .producto-tarjeta__grano { animation: none; }
+  .producto-tarjeta:hover, .solicitud:hover { transform: none; }
+}

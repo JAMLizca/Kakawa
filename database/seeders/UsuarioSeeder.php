@@ -24,5 +24,19 @@ class UsuarioSeeder extends Seeder
             'password' => 'Operador2026*',
             'activo' => true,
         ]);
+
+        // Comprador de demostración (en la app real los compradores se registran solos).
+        $comprador = User::firstOrNew(['usuario' => 'comprador']);
+        $comprador->forceFill([
+            'nombre' => 'Comprador Demo',
+
+            'rol' => Rol::Cliente,
+            'password' => 'Comprador2026*',
+            'activo' => true,
+            'correo' => 'comprador@kakawa.demo',
+            'telefono' => '3000000000',
+            'ciudad' => 'Neiva',
+            'documento' => 'DEMO-0001',
+        ])->save();
     }
 }

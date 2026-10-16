@@ -1,0 +1,135 @@
+/* =========================================================
+   Kakawa · estilo orgánico cacao · 3. Inicio de sesión
+   Foto de fondo, nombre en Fraunces con brillo dorado y tarjeta con borde que gira.
+   ========================================================= */
+@property --giro { syntax: "<angle>"; inherits: false; initial-value: 0deg; }
+
+.pantalla-ingreso .vista { max-width: none; padding: 0; }
+
+.acceso {
+  position: relative; isolation: isolate; overflow: hidden;
+  min-height: 100vh; min-height: 100dvh;
+  display: grid; justify-items: center; align-content: center; gap: var(--espacio3);
+  padding: var(--espacio4) var(--espacio2); color: #fff;
+}
+.acceso::before, .acceso::after { content: ""; position: absolute; inset: 0; z-index: -1; }
+.acceso::before {
+  background: #2a1a14 url("../../img/fondo.jpg") center / cover no-repeat;
+  animation: foto-entrar 2.6s var(--suave) both, foto-mover 30s 2.6s ease-in-out infinite alternate;
+}
+.acceso::after {
+  background:
+    radial-gradient(60% 50% at 50% 45%, rgba(42, 26, 20, 0.25), rgba(42, 26, 20, 0.8)),
+    linear-gradient(180deg, rgba(105, 18, 18, 0.25), transparent 40%, rgba(51, 103, 59, 0.3));
+}
+
+/* Nombre: letras en Fraunces con un degradado Tea Green → Golden Earth que se desliza */
+.acceso__nombre {
+  margin: 0; font-family: var(--fuente-titulos); font-variation-settings: "SOFT" 100, "WONK" 1;
+  font-size: clamp(3.2rem, 12vw, 7rem); font-weight: 800; line-height: 1; letter-spacing: 0.06em; text-transform: uppercase;
+  color: transparent; -webkit-background-clip: text; background-clip: text;
+  background-image: linear-gradient(100deg, var(--tea-green) 0%, #fff 30%, color-mix(in srgb, var(--golden-earth) 60%, white) 50%, var(--tea-green) 70%, #fff 100%);
+  background-size: 250% 100%;
+  filter: drop-shadow(0 6px 24px rgba(0, 0, 0, 0.45));
+  animation: nombre-entrar 1.3s var(--suave) both, nombre-brillo 6s 1.3s ease-in-out infinite;
+}
+
+/* Tarjeta: vidrio Black Cherry con un borde de luz que gira */
+.acceso__tarjeta {
+  position: relative; width: min(26rem, 100%);
+  padding: var(--espacio4) var(--espacio3) var(--espacio3);
+  border-radius: 32px;
+  background: color-mix(in srgb, var(--black-cherry) 82%, transparent);
+  -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px);
+  box-shadow: 0 30px 70px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.15);
+  animation: tarjeta-entrar .9s .3s var(--rebote) both;
+}
+.acceso__tarjeta::before {
+  content: ""; position: absolute; inset: -2px; z-index: -1; border-radius: 34px; padding: 2px;
+  background: conic-gradient(from var(--giro), transparent 0 55%, var(--golden-earth) 70%, var(--tea-green) 80%, transparent 92%);
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor; mask: linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0);
+  animation: girar-borde 5s linear infinite;
+}
+.acceso__tarjeta--error { animation: tarjeta-entrar .9s .3s var(--rebote) both, sacudir .45s ease-in-out; }
+
+.acceso__formulario { display: grid; gap: var(--espacio3); }
+.acceso__titulo { margin: 0 0 var(--espacio0); text-align: center; font-size: var(--paso3); color: #fff; }
+.acceso__titulo::after {
+  content: ""; display: block; width: 3rem; height: 4px; margin: 0.6rem auto 0; border-radius: 4px;
+  background: linear-gradient(90deg, var(--golden-earth), var(--tea-green));
+}
+
+/* Etiquetas flotantes */
+.acceso__campo { position: relative; display: block; }
+.acceso__campo input {
+  width: 100%; height: 3.7rem; padding: 1.4rem var(--espacio2) 0.35rem;
+  font: inherit; color: var(--texto); background: var(--superficie);
+  border: 2px solid transparent; border-radius: 18px; box-shadow: none;
+  transition: border-color .2s, box-shadow .25s var(--suave), transform .25s var(--rebote);
+}
+.acceso__campo label {
+  position: absolute; left: var(--espacio2); top: 50%; transform: translateY(-50%);
+  color: var(--texto-suave); font-size: var(--paso0); font-weight: 550; pointer-events: none; transform-origin: left center;
+  transition: top .25s var(--suave), transform .25s var(--suave), color .2s;
+}
+.acceso__campo input:focus + label, .acceso__campo input:not(:placeholder-shown) + label {
+  top: 0.95rem; transform: translateY(-50%) scale(0.76); color: var(--hunter-green); font-weight: 700;
+}
+.acceso__campo input:hover { transform: translateY(-1px); }
+.acceso__campo input:focus-visible { outline: none; border-color: var(--tea-green); box-shadow: 0 0 0 5px rgba(208, 255, 213, 0.35); }
+.acceso__campo [aria-invalid="true"] { border-color: #ffb4a8; background: #fff; }
+.acceso__campo .campo__error { margin: var(--espacio-1) 0 0 var(--espacio1); color: var(--tea-green); }
+.acceso__campo--clave input { padding-right: 5.8rem; }
+.acceso__ver {
+  position: absolute; right: var(--espacio0); top: 1.85rem; transform: translateY(-50%);
+  min-height: 38px; padding: 0 var(--espacio1); border: 0; border-radius: 12px;
+  font: inherit; font-size: var(--paso-1); font-weight: 700; color: var(--hunter-green);
+  background: var(--verde-fondo); cursor: pointer; transition: background .2s;
+}
+.acceso__ver:hover { background: var(--tea-green); }
+
+.acceso__boton {
+  position: relative; overflow: hidden; justify-self: stretch; min-height: 54px; margin-top: var(--espacio0);
+  border: 0; border-radius: 999px; cursor: pointer;
+  font: inherit; font-size: var(--paso1); font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase;
+  color: #fff; background: linear-gradient(135deg, color-mix(in srgb, var(--golden-earth) 80%, white), var(--golden-earth) 55%, color-mix(in srgb, var(--golden-earth) 75%, black));
+  box-shadow: 0 10px 26px rgba(154, 109, 56, 0.45);
+  transition: transform .25s var(--rebote), box-shadow .25s;
+}
+.acceso__boton::after {
+  content: ""; position: absolute; inset: 0;
+  background: linear-gradient(110deg, transparent 30%, rgba(255, 255, 255, 0.35) 50%, transparent 70%);
+  transform: translateX(-120%); transition: transform .7s var(--suave);
+}
+.acceso__boton:hover { transform: translateY(-2px); box-shadow: 0 16px 34px rgba(154, 109, 56, 0.55); }
+.acceso__boton:hover::after { transform: translateX(120%); }
+.acceso__boton:active { transform: scale(0.98); }
+.acceso__boton:focus-visible { outline: none; box-shadow: 0 0 0 3px var(--black-cherry), 0 0 0 6px var(--tea-green); }
+.acceso__boton:disabled { opacity: 0.75; cursor: progress; transform: none; }
+
+.acceso__tarjeta .error-formulario { background: #fff; margin: 0; }
+
+.acceso__demo { margin-top: var(--espacio3); font-size: var(--paso-1); color: color-mix(in srgb, var(--tea-green) 60%, white); }
+.acceso__demo summary { cursor: pointer; font-weight: 650; text-align: center; }
+.acceso__demo dl { display: grid; grid-template-columns: auto 1fr; gap: var(--espacio-1) var(--espacio1); margin: var(--espacio1) 0 0; padding: var(--espacio1) var(--espacio2); border-radius: 14px; background: rgba(0, 0, 0, 0.18); }
+.acceso__demo dt { font-weight: 750; }
+.acceso__demo dd { margin: 0; font-variant-numeric: tabular-nums; }
+.acceso__demo p { margin: var(--espacio0) 0 0; }
+
+.acceso__publico {
+  margin: 0; padding: 0.5rem 1.1rem; border-radius: 999px; text-align: center; font-size: var(--paso-1);
+  color: #f6eee4; background: rgba(42, 26, 20, 0.35); -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px);
+  animation: entrar-suave .8s .6s var(--suave) both;
+}
+.acceso__publico a { color: var(--tea-green); font-weight: 700; text-decoration-color: rgba(208, 255, 213, 0.5); }
+.acceso__publico a:hover { color: #fff; }
+
+.acceso--saliendo { transition: opacity .4s ease, transform .4s var(--suave); opacity: 0; transform: scale(1.03); }
+
+@keyframes foto-entrar { from { opacity: 0.3; transform: scale(1.12); } to { opacity: 1; transform: scale(1.02); } }
+@keyframes foto-mover { from { transform: scale(1.02) translate(0, 0); } to { transform: scale(1.08) translate(-1.5%, 1%); } }
+@keyframes nombre-entrar { from { opacity: 0; letter-spacing: 0.5em; filter: blur(8px) drop-shadow(0 6px 24px rgba(0, 0, 0, 0.45)); } to { opacity: 1; letter-spacing: 0.06em; } }
+@keyframes nombre-brillo { 0%, 100% { background-position: 0% 0; } 50% { background-position: 100% 0; } }
+@keyframes tarjeta-entrar { from { opacity: 0; transform: translateY(40px) scale(0.95); } to { opacity: 1; transform: none; } }
+@keyframes girar-borde { to { --giro: 360deg; } }
