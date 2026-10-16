@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Kakawa">
+  <title>Kakawa</title>
+  <rect width="64" height="64" rx="14" fill="#691212"/>
+  <path d="M32 9c-10 7-15 15-15 23s5 16 15 23c10-7 15-15 15-23S42 16 32 9z" fill="#9A6D38"/>
+  <path d="M32 13v38M24 22c3 2 5 2 8 2s5 0 8-2M22 32c3 2 6 2 10 2s7 0 10-2M24 42c3 2 5 2 8 2s5 0 8-2"
+        fill="none" stroke="#D0FFD5" stroke-width="2.4" stroke-linecap="round"/>
+</svg>

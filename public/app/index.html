@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="Content-Security-Policy"
+        content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'self'; base-uri 'self'; form-action 'self'">
+  <meta name="description" content="Kakawa: trazabilidad, transformación y comercialización del cacao.">
+  <meta name="theme-color" content="#691212">
+  <title>Kakawa</title>
+  <link rel="icon" href="img/icono.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="css/Kakawa.css">
+  <script type="module" src="js/app.js"></script>
+</head>
+<body>
+  <a class="saltar" href="#vista">Saltar al contenido</a>
+
+  <header class="barra" id="barra" hidden>
+    <div class="barra__interior">
+      <a class="marca" href="#/lotes" aria-label="Kakawa, ir a lotes">
+        <img src="img/icono.svg" alt="" width="28" height="28">
+        <span>Kakawa</span>
+      </a>
+      <nav class="menu" aria-label="Principal">
+        <ul id="menu"></ul>
+      </nav>
+      <div class="sesion">
+        <span class="sesion__usuario" id="usuario-actual"></span>
+        <button class="boton boton--sobre-vino" id="salir" type="button">Cerrar sesión</button>
+      </div>
+    </div>
+
+  </header>
+
+  <main class="vista" id="vista" tabindex="-1">
+    <p class="cargando">Cargando Kakawa…</p>
+  </main>
+
+  <div class="avisos" id="avisos" role="status" aria-live="polite"></div>
+
+  <noscript>
+    <p class="noscript">Kakawa necesita JavaScript activado para funcionar.</p>
+  </noscript>
+</body>
+</html>
