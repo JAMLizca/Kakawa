@@ -17,6 +17,10 @@ class Producto extends Model
 
     protected $keyType = 'string';
 
+    protected $attributes = [
+        'estado' => 'pendiente',
+    ];
+
     protected $fillable = [
         'id',
         'nombre',
