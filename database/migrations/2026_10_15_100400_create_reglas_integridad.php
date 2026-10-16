@@ -98,10 +98,10 @@ return new class extends Migration
                 CREATE TRIGGER trg_transf_antes_insertar BEFORE INSERT ON transformaciones FOR EACH ROW
 
                 BEGIN
-                    DECLARE v_unidad VARCHAR(10);
-                    DECLARE v_lote_entrada VARCHAR(20);
+                    DECLARE v_unidad VARCHAR(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+                    DECLARE v_lote_entrada VARCHAR(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
                     DECLARE v_disponible DECIMAL(14,3);
-                    DECLARE v_mensaje VARCHAR(255);
+                    DECLARE v_mensaje VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
                     SELECT unidad INTO v_unidad FROM lotes WHERE id = NEW.lote_id;
                     IF v_unidad IS NULL THEN
