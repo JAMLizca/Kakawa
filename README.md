@@ -403,6 +403,6 @@ Servicios externos: **ninguno es obligatorio.** La app funciona en red local o s
 
 ## Equipo
 
-**Kakawa**: *Darlys Melissa Guanay, Jose Alejandro Montenegro, Manuel Santiago Ramirez*
+**Los Guachiturros**: *Darlys Melissa Guanay, Jose Alejandro Montenegro, Manuel Santiago Ramirez*
 
 II Hackathon de Programación · Universidad Surcolombiana (USCO) · Semillero DEVURITY · 2026
