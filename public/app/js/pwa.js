@@ -7,12 +7,27 @@ import { sesion } from './sesion.js';
 import { aviso, el } from './ui.js';
 
 // ---------- Service Worker ----------
-// Solo funciona en contexto seguro: https:// o http://localhost / 127.0.0.1.
-// Por http://IP-de-la-red el navegador no lo permite (la base local IndexedDB sí funciona).
+// Vive en la raíz (/sw.js) para controlar "/" y "/app/". Solo funciona en contexto seguro:
+// https:// o http://localhost / 127.0.0.1. Por http://IP-de-la-red el navegador NO lo permite:
+// la página no abre sin conexión después de cerrarla y las secciones no visitadas no cargan.
 async function registrarServiceWorker() {
-  if (!('serviceWorker' in navigator) || !window.isSecureContext) return;
+  if (!('serviceWorker' in navigator)) return;
+  if (!window.isSecureContext) {
+    console.warn('[Kakawa] Sin Service Worker: abra el sitio por https:// o http://localhost para usarlo sin conexión.');
+    try {
+      if (!sessionStorage.getItem('kakawa.aviso-https')) {
+        sessionStorage.setItem('kakawa.aviso-https', '1');
+        aviso('Para usar Kakawa sin conexión después de cerrar el navegador, ábralo por https:// (o localhost en este equipo).', 'info');
+      }
+    } catch { /* sin sessionStorage */ }
+    return;
+  }
   try {
-    const registro = await navigator.serviceWorker.register('sw.js', { scope: './' });
+    // Quita el Service Worker anterior (/app/sw.js): la versión nueva controla todo el sitio desde la raíz.
+    for (const r of await navigator.serviceWorker.getRegistrations()) {
+      if (r.scope !== `${location.origin}/`) await r.unregister();
+    }
+    const registro = await navigator.serviceWorker.register('/sw.js', { scope: '/' });
 
     // Solo se recarga cuando el usuario pide actualizar (la primera instalación no recarga la página).
     let actualizacionPedida = false;
@@ -74,30 +89,53 @@ async function pintarIndicador() {
 const PRECARGA_MINUTOS = 5;
 let ultimaPrecarga = 0;
 
+const MAX_DETALLES = 60;
+
+/** Pide una ruta para que api.js la guarde en IndexedDB; si falla, sigue con las demás. */
+async function guardar(ruta) {
+  if (!navigator.onLine) return null;
+  try {
+    return await api(ruta);
+  } catch {
+    return null;
+  }
+}
+
+/**
+ * Deja guardado en el equipo lo que cada sección necesita, aunque el usuario nunca la haya abierto:
+ * catálogo y fichas públicas (para todos) y los datos de cada sección según el rol.
+ */
 async function precargar(forzar = false) {
-  if (!navigator.onLine || !sesion.activa()) return;
+  if (!navigator.onLine) return;
   if (!forzar && Date.now() - ultimaPrecarga < PRECARGA_MINUTOS * 60_000) return;
   ultimaPrecarga = Date.now();
 
+  // Público: catálogo de inicio.html y la ficha de cada producto disponible.
+  const catalogo = await guardar('/publico/catalogo');
+  for (const p of (catalogo?.productos ?? []).slice(0, MAX_DETALLES)) {
+    await guardar(`/publico/productos/${encodeURIComponent(p.codigo)}`);
+  }
+
+  if (!sesion.activa()) return;
   const rol = sesion.usuario()?.rol;
-  try {
-    if (rol === 'cliente') {
-      await api('/tienda/catalogo');
-      await api('/mis-solicitudes');
-      return;
-    }
-    const { lotes } = await api('/lotes');
-    // El detalle de cada lote permite transformar sin conexión (existencias y productos).
-    for (const l of lotes.slice(0, 60)) {
-      if (!navigator.onLine) return;
-      await api(`/lotes/${encodeURIComponent(l.id)}`);
-    }
-    if (rol === 'administrador') {
-      await api('/alertas');
-      await api('/solicitudes');
-    }
-  } catch {
-    /* si falla, se intenta en la siguiente precarga */
+
+  if (rol === 'cliente') {
+    await guardar('/tienda/catalogo');
+    await guardar('/mis-solicitudes');
+    return;
+  }
+
+  // Operador y administrador: lotes y el detalle de cada uno (permite transformar sin conexión).
+  const lista = await guardar('/lotes');
+  const lotes = (lista?.lotes ?? []).slice(0, MAX_DETALLES);
+  for (const l of lotes) await guardar(`/lotes/${encodeURIComponent(l.id)}`);
+
+  if (rol === 'administrador') {
+    await guardar('/alertas');
+    await guardar('/solicitudes');
+    await guardar('/auditoria?limite=200');
+    await guardar('/respaldos');
+    for (const l of lotes) await guardar(`/lotes/${encodeURIComponent(l.id)}/historial`);
   }
 }
 
@@ -118,10 +156,8 @@ function iniciar() {
   });
 
   registrarServiceWorker();
-  if (enApp() && sesion.activa()) {
-    sincronizar();
-    setTimeout(() => precargar(), 2000); // después de pintar la primera pantalla
-  }
+  if (enApp() && sesion.activa()) sincronizar();
+  setTimeout(() => precargar(), 2000); // después de pintar la primera pantalla, en cualquier página
 }
 
 if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', iniciar);
