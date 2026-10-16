@@ -135,6 +135,7 @@ async function precargar(forzar = false) {
     await guardar('/solicitudes');
     await guardar('/auditoria?limite=200');
     await guardar('/respaldos');
+    await guardar('/usuarios');
     for (const l of lotes) await guardar(`/lotes/${encodeURIComponent(l.id)}/historial`);
   }
 }

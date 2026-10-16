@@ -7,7 +7,7 @@
 // IMPORTANTE: al cambiar cualquier archivo de la interfaz, cambie VERSION para que el navegador
 // descargue lo nuevo (la app ofrece "Actualizar"):
 //   sed -i "s/^const VERSION = .*/const VERSION = 'kakawa-$(date +%Y%m%d%H%M%S)';/" public/sw.js
-const VERSION = 'kakawa-20261016115537';
+const VERSION = 'kakawa-20261016124022';
 
 const INTERFAZ = [
   'index.html', 'inicio.html', 'ficha.html', 'manifest.json',
@@ -23,7 +23,7 @@ const INTERFAZ = [
   'js/componentes/analisis.js', 'js/componentes/dialogo.js', 'js/componentes/historial.js', 'js/componentes/qr.js',
   'js/vistas/alertas.js', 'js/vistas/auditoria.js', 'js/vistas/ingreso.js', 'js/vistas/lote.js',
   'js/vistas/lotes.js', 'js/vistas/mis-solicitudes.js', 'js/vistas/respaldos.js', 'js/vistas/sincronizacion.js',
-  'js/vistas/solicitudes.js', 'js/vistas/tienda.js', 'js/vistas/transformar.js',
+  'js/vistas/solicitudes.js', 'js/vistas/personal.js', 'css/organico/personal.css', 'js/vistas/tienda.js', 'js/vistas/transformar.js',
 ].map((ruta) => `/app/${ruta}`);
 
 const INICIO = '/app/inicio.html';

@@ -6,6 +6,7 @@ use App\Http\Controllers\Api\ExportacionController;
 use App\Http\Controllers\Api\FichaPublicaController;
 use App\Http\Controllers\Api\LoteController;
 use App\Http\Controllers\Api\PanelController;
+use App\Http\Controllers\Api\PersonalController;
 use App\Http\Controllers\Api\ProductoController;
 use App\Http\Controllers\Api\RespaldoController;
 use App\Http\Controllers\Api\SincronizacionController;
@@ -64,6 +65,11 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::get('/respaldos', [RespaldoController::class, 'index']);                     // RF07
         Route::post('/respaldos', [RespaldoController::class, 'store']);                    // RF07
         Route::post('/respaldos/restaurar', [RespaldoController::class, 'restaurar']);      // RF07
+        // Personal: el administrador crea operadores, los activa o desactiva y les asigna contraseña.
+        Route::get('/usuarios', [PersonalController::class, 'index']);
+        Route::post('/usuarios', [PersonalController::class, 'store']);
+        Route::post('/usuarios/{usuario}/estado', [PersonalController::class, 'estado'])->whereNumber('usuario');
+        Route::post('/usuarios/{usuario}/clave', [PersonalController::class, 'clave'])->whereNumber('usuario');
         Route::get('/solicitudes', [ClienteController::class, 'index']);
         Route::post('/solicitudes/{solicitud}/respuesta', [ClienteController::class, 'responder'])->whereNumber('solicitud');
     });

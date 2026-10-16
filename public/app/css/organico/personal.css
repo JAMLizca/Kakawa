@@ -1,0 +1,16 @@
+/* =========================================================
+   Kakawa · estilo orgánico cacao · Personal (administrador)
+   ========================================================= */
+:root {
+  --icono-personal: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cg fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='9' cy='8' r='3.5'/%3E%3Cpath d='M2.5 20c.6-3.6 3.2-5.5 6.5-5.5s5.9 1.9 6.5 5.5'/%3E%3Cpath d='M16 4.5a3.5 3.5 0 0 1 0 7M18 14.8c2 .7 3.2 2.4 3.5 5.2'/%3E%3C/g%3E%3C/svg%3E");
+}
+.lateral .menu a[href="#/personal"]::before { -webkit-mask-image: var(--icono-personal); mask-image: var(--icono-personal); }
+
+.rol-chip { display: inline-block; padding: 0.2rem 0.75rem; border-radius: 999px; font-size: var(--paso-1); font-weight: 750; }
+.rol-chip--operador { color: var(--hunter-green); background: var(--verde-fondo, color-mix(in srgb, var(--tea-green) 45%, var(--superficie))); }
+.rol-chip--administrador { color: var(--black-cherry); background: color-mix(in srgb, var(--golden-earth) 22%, var(--superficie)); }
+.estado-cuenta { display: inline-flex; align-items: center; gap: 0.4rem; font-weight: 700; }
+.estado-cuenta::before { content: ""; width: 0.55rem; height: 0.55rem; border-radius: 50%; background: currentColor; }
+.estado-cuenta--activa { color: var(--hunter-green); }
+.estado-cuenta--inactiva { color: var(--blood-red); }
+.personal--inactivo th, .personal--inactivo td:not(.tabla__acciones) { opacity: 0.6; }

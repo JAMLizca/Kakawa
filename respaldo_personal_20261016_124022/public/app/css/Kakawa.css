@@ -1,0 +1,11 @@
+/* Kakawa: estilo orgánico cacao.
+   anterior.css guarda los estilos de las pantallas que aún no se han rediseñado;
+   se quita en el último paso del rediseño. */
+@import url("anterior.css");
+@import url("organico/base.css");
+@import url("organico/estructura.css");
+@import url("organico/ingreso.css");
+@import url("organico/tienda.css");
+@import url("organico/sitio.css");
+@import url("organico/offline.css");
+@import url("organico/asistente.css");
